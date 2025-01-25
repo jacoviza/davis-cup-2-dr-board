@@ -9,20 +9,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: linear-gradient(to bottom, rgb(144, 5, 9) 0%, rgb(189, 55, 56) 40%, rgb(182, 51, 56) 81%, rgb(202, 10, 20) 100%);
     --foreground: #ededed;
   }
-}
-
-@font-face {
-  font-family: 'Rushfordclean';
-  src: url('/fonts/Rushfordclean-rgz89.otf') format("opentype");
-  font-weight: normal;
-  font-style: normal;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Rushfordclean', Arial, Helvetica, sans-serif;
 }
+
