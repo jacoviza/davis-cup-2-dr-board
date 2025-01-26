@@ -1,8 +1,20 @@
+import {neon} from "@neondatabase/serverless";
+
 export default function Board() {
+
+    async function create(formData: FormData) {
+        'use server';
+        // Connect to the Neon database
+        const sql = neon(`${process.env.DATABASE_URL}`);
+        const day1dom1 = formData.get('day1dom1');
+        // Insert the comment from the form into the Postgres database
+        await sql('UPDATE match_board SET form = jsonb_set(form, \'{day1dom1}\', $1::jsonb) WHERE game = \'dom-bol-02-2025\'', [JSON.stringify(day1dom1)]);
+    }
     return(
+        <form action={create}>
         <div className="flex h-screen">
 
-            <div className="flex flex-col m-5 flex-grow">
+            <div className="flex flex-col m-1 flex-grow">
                 <div className="flex flex-row justify-center h-1/5 mb-2">
                     <div className="flex justify-end w-1/3 "><img src="/logos/davis-cup.png" className="object-contain"></img></div>
                     <div className="flex justify-center w-1/3 mx-32 "><img src="/logos/itf.png"></img></div>
@@ -31,8 +43,8 @@ export default function Board() {
                             <div className="text-2xl tracking-wide content-center pt-20">Día 1</div>
                             <div className="col-span-11 grid grid-rows-3 grid-flow-col gap-x-20 gap-y-2 mt-6">
                                 <div className="text-2xl tracking-wide text-center">Dominicana</div>
-                                <div className="content-center"><input type="text" className="w-64 h-10"></input></div>
-                                <div className="content-center"><input type="text" className="w-64 h-10"></input></div>
+                                <div className="content-center"><input type="text" id="day1dom1" name="day1dom1" className="w-64 h-10"></input></div>
+                                <div className="content-center"><input type="text" id="day1dom2" name="day1dom2" className="w-64 h-10"></input></div>
                                 <div className="row-start-2 text-2xl tracking-wide content-center">VS</div>
                                 <div className="text-2xl tracking-wide content-center">VS</div>
                                 <div className="text-2xl tracking-wide text-center">Bolivia</div>
@@ -73,8 +85,12 @@ export default function Board() {
                     </div>
                 </main>
 
+                <div className="w-full">
+                    <button className="float-right" type="submit">Guardar</button>
+                </div>
             </div>
 
         </div>
+        </form>
     )
 }
