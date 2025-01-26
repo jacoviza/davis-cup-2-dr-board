@@ -19,3 +19,8 @@ body {
   background: var(--background);
 }
 
+main input {
+  color: #000000;
+  font-size: x-large;
+  text-align: center;
+}
