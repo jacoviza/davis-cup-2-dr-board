@@ -121,7 +121,8 @@ export default function Board() {
                                 <div className="text-2xl tracking-wide text-center">Bolivia</div>
                                 <div className="content-center"><input type="text" id="day1bol1" name="day1bol1" value={formData.day1bol1} onChange={handleChange} className="w-64 h-10"></input></div>
                                 <div className="content-center"><input type="text" id="day1bol2" name="day1bol2" value={formData.day1bol2} onChange={handleChange} className="w-64 h-10"></input></div>
-                                <div className="row-start-2 content-center"><input type="text" id="day1result1" name="day1result1" value={formData.day1result1} onChange={handleChange} className="w-64 h-10"></input></div>
+                                <div className="text-2xl tracking-wide text-center">Resultados</div>
+                                <div className="content-center"><input type="text" id="day1result1" name="day1result1" value={formData.day1result1} onChange={handleChange} className="w-64 h-10"></input></div>
                                 <div className="content-center"><input type="text" id="day1result2" name="day1result2" value={formData.day1result2} onChange={handleChange} className="w-64 h-10"></input></div>
                             </div>
                         </div>
