@@ -8,7 +8,7 @@ export async function create(formData: FormData) {
 
     const jsonObject: { [key: string]: string } = {};
     formData.forEach((value, key) => {
-        jsonObject[key] = value;
+        jsonObject[key] = value as string;
     });
 
     console.log('jsonObject:', jsonObject);
