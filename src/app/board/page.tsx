@@ -1,6 +1,8 @@
 'use client';
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {create, getData} from "@/app/actions";
+import debounce from "lodash.debounce";
+import SaveIcon from '@mui/icons-material/Save';
 
 export default function Board() {
 
@@ -57,13 +59,30 @@ export default function Board() {
         fetchData();
     }, []);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const debouncedSave = useCallback(debounce(async formData =>
+        await create(formData), 1000), []);
+
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+        const formDataObj = new FormData();
+        Object.entries(formData).forEach(([key, value]) => {
+            formDataObj.append(key, value);
+        });
+        await debouncedSave(formDataObj);
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formDataObj = new FormData();
+        Object.entries(formData).forEach(([key, value]) => {
+            formDataObj.append(key, value);
+        });
+        await create(formDataObj);
     };
 
     return(
-        <form action={create}>
+        <form onSubmit={handleSubmit}>
         <div className="flex h-screen">
 
             <div className="flex flex-col m-1 flex-grow">
@@ -118,7 +137,7 @@ export default function Board() {
                                 <div className="content-center"><input type="text" id="day2bol1" name="day2bol1" value={formData.day2bol1} onChange={handleChange} className="w-64 h-10"></input></div>
                                 <div className="content-center"><input type="text" id="day2bol2" name="day2bol2" value={formData.day2bol2} onChange={handleChange} className="w-64 h-10"></input></div>
                                 <div className="row-span-2 content-center"><input type="text" id="day2result1" name="day2result1" value={formData.day2result1} onChange={handleChange}
-                                                                                  className="w-64 h-16"></input></div>
+                                                                                  className="w-64 h-10"></input></div>
                             </div>
 
 
@@ -137,7 +156,7 @@ export default function Board() {
                 </main>
 
                 <div className="w-full">
-                    <button className="float-right" type="submit">Guardar</button>
+                    <button className="float-right" type="submit"><SaveIcon/></button>
                 </div>
             </div>
 
