@@ -6,7 +6,7 @@ export async function create(formData: FormData) {
     // Connect to the Neon database
     const sql = neon(`${process.env.DATABASE_URL}`);
 
-    const jsonObject: { [key: string]: any } = {};
+    const jsonObject: { [key: string]: string } = {};
     formData.forEach((value, key) => {
         jsonObject[key] = value;
     });
