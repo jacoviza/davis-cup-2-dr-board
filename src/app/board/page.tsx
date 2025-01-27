@@ -1,8 +1,8 @@
 'use client';
 import {useCallback, useEffect, useState} from "react";
 import {create, getData} from "@/app/actions";
-import debounce from "lodash.debounce";
 import SaveIcon from '@mui/icons-material/Save';
+import {debounce} from "@mui/material";
 
 export default function Board() {
 
